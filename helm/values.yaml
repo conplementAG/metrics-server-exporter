@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: vivareal/metrics-server-exporter
-  tag: v0.0.6
+  repository: conplementag/metrics-server-exporter
+  tag: "1.0.0"
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
