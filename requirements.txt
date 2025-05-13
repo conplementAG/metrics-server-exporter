@@ -1,2 +1,5 @@
-prometheus-client==0.3.1
-requests==2.20.0
+
+# https://github.com/prometheus/client_python/releases
+prometheus-client==0.21.1
+# https://pypi.org/project/requests/2.7.0/#description
+requests==2.32.3
