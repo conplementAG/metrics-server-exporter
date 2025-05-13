@@ -28,7 +28,7 @@ class MetricsServerExporter:
         self.ca_cert         = os.environ.get('K8S_CA_CERT_PATH', '/var/run/secrets/kubernetes.io/serviceaccount/ca.crt')
         self.api_url         = os.environ.get('K8S_ENDPOINT', 'https://kubernetes.default.svc')
         self.names_blacklist = os.environ.get('NAMES_BLACKLIST', '').split(',')
-        self.namespaces      = os.environ.get('NAMESPACE_WHITELIST','').split(',')
+        self.namespaces = os.environ['NAMESPACE_WHITELIST'].split(',') if 'NAMESPACE_WHITELIST' in os.environ else []
         self.labelSelector   = os.environ.get('LABEL_SELECTOR','')
 
         self.api_nodes_url   = f"{self.api_url}/apis/metrics.k8s.io/v1beta1/nodes"
