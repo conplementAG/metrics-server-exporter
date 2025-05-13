@@ -103,7 +103,7 @@ class MetricsServerExporter:
             else:
                 try:
                     nodes = resp_nodes.json()
-                    logging.info(f"Node: {nodes}")
+                    logging.debug(f"Node: {nodes}")
                 except Exception as e:
                     logging.error(f"Error decoding node metrics JSON: {e}")
                     nodes = {'items': []}    
@@ -114,7 +114,7 @@ class MetricsServerExporter:
             else:
                 try:
                     pod_data = resp_pods.json()
-                    logging.info(f"Pods: {pod_data}")
+                    logging.debug(f"Pods: {pod_data}")
                 except Exception as e:
                     logging.error(f"Error decoding pod metrics JSON: {e}")
                     pod_data = {'items': []}      
