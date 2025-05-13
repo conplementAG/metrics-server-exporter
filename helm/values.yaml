@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: conplementag/metrics-server-exporter
   tag: "1.1.0"
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 
 imagePullSecrets: []
 nameOverride: ""

@@ -65,15 +65,19 @@ spec:
               containerPort: 8000
               protocol: TCP
           livenessProbe:
+            failureThreshold: 5
             httpGet:
               path: /metrics
               port: 8000
               scheme: HTTP
+            timeoutSeconds: 5
           readinessProbe:
+            failureThreshold: 3
             httpGet:
               path: /metrics
               port: 8000
               scheme: HTTP
+            timeoutSeconds: 5
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
