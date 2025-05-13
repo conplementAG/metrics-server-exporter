@@ -22,4 +22,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: conplementag/metrics-server-exporter:1.0.0 , conplementag/metrics-server-exporter:latest
+          tags: conplementag/metrics-server-exporter:1.1.0 , conplementag/metrics-server-exporter:latest

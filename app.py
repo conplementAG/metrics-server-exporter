@@ -35,14 +35,13 @@ class MetricsServerExporter:
         self.api_pods_url    = f"{self.api_url}/apis/metrics.k8s.io/v1beta1/pods"
 
         self.insecure_tls = self.set_tls_mode()
-        self.token = self.set_token()
 
     def set_tls_mode(self):
         tls = ('--insecure-tls','') in options
         logging.info(f"TLS verification {'disabled' if tls else 'enabled'}")
         return tls
 
-    def set_token(self):
+    def get_token(self):
         if os.environ.get('K8S_TOKEN'):
             logging.info("Using token from environment variable")
             return os.environ['K8S_TOKEN']
@@ -54,12 +53,13 @@ class MetricsServerExporter:
             return token
         logging.warning("No Kubernetes token found")
         return None  
+    
     def set_namespaced_pod_url(self, namespace):
         return f"{self.api_url}/apis/metrics.k8s.io/v1beta1/namespaces/{namespace}/pods?labelSelector={self.labelSelector}"
 
     def kube_metrics(self):
         logging.info("Querying metrics-server API for metrics")
-        headers = { "Authorization": f"Bearer {self.token}" }
+        headers = { "Authorization": f"Bearer {self.get_token()}" }
         query = { 'labelSelector': self.labelSelector }
         session = requests.Session()
         retry = Retry(total=3, connect=3, backoff_factor=0.1)
@@ -78,6 +78,7 @@ class MetricsServerExporter:
         if self.namespaces:
             for ns in self.namespaces:
                 if not ns:
+
                     continue
                 logging.info(f"Fetching pod metrics from namespace: {ns}")
                 url = self.set_namespaced_pod_url(ns)
