@@ -48,7 +48,6 @@ class MetricsServerExporter:
         if os.path.exists(self.svc_token):
             with open(self.svc_token, 'r') as f:
                 token = f.readline()
-            os.environ['K8S_TOKEN'] = token
             logging.info("Using token from service account file")
             return token
         logging.warning("No Kubernetes token found")
